@@ -4,8 +4,9 @@
 ## 使用
 * 皮皮虾
   ```
-  Map<String,String> map_ppx = ShortVideo.getPPX(皮皮虾短视频链接,层模式);
+  Map<String,String> map_ppx = ShortVideo.getPPX(String url, boolean cell);
   ```
+  > cell：层模式，'true'代表层模式，'false'代表正常模式
   
   返回Map类型数据，键值对照如下<br>
 
@@ -20,7 +21,7 @@
   
 * 抖音
   ```
-  Map<String,String> map_dy = ShortVideo.getDY(抖音短视频链接);
+  Map<String,String> map_dy = ShortVideo.getDY(String url);
   ```
   
   返回Map类型数据，键值对照如下<br>
@@ -34,7 +35,7 @@
 
 * 微视
   ```
-  Map<String,String> map_ws = ShortVideo.getWS(微视短视频链接);
+  Map<String,String> map_ws = ShortVideo.getWS(String url);
   ```
   
   返回Map类型数据，键值对照如下<br>
