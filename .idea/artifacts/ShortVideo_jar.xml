@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ShortVideo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ShortVideo_jar</output-path>
+    <root id="archive" name="ShortVideo.jar">
+      <element id="module-output" name="ShortVideo" />
+      <element id="extracted-dir" path="G:/java/jar/fastjson-1.2.62.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
