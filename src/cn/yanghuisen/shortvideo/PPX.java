@@ -24,22 +24,36 @@ class PPX {
     private String videoOriginTitle;
     private String videoAuthorId;
     private String videoAuthorName;
+    private boolean cell;
 
-    public PPX(String video_url) {
+    public PPX(String video_url,boolean cell) {
         this.videoUrl = video_url;
+        this.cell = cell;
         this.videoId = getID();
         this.videoJson = getJson();
-        this.videoOriginUrl = getOriginUrl();
-        this.videoOriginTitle = getOriginTitle();
-        this.videoAuthorId = getAuthorId();
-        this.videoAuthorName = getAuthorName();
+        if (!cell){
+            this.videoOriginUrl = getOriginUrl();
+            this.videoOriginTitle = getOriginTitle();
+            this.videoAuthorId = getAuthorId();
+            this.videoAuthorName = getAuthorName();
+        }else {
+            this.videoOriginUrl = getCellOriginUrl();
+            this.videoOriginTitle = getCellOriginTitle();
+            this.videoAuthorId = getCellAuthorId();
+            this.videoAuthorName = getCellAuthorName();
+        }
+
     }
 
     private String getJson(){
         URL url = null;
         String result = "";
         try {
-            url = new URL("https://h5.pipix.com/bds/webapi/item/detail/?item_id="+this.videoId);
+            if (!this.cell){
+                url = new URL("https://h5.pipix.com/bds/webapi/item/detail/?item_id="+this.videoId);
+            }else {
+                url = new URL("https://h5.pipix.com/bds/webapi/cell/detail/?cell_id="+this.videoId+"&cell_type=8&source=share");
+            }
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
             conn.connect();
@@ -63,13 +77,21 @@ class PPX {
             conn.setInstanceFollowRedirects(false);
             conn.connect();
             String s = conn.getHeaderField("Location");
-            id = s.substring(s.indexOf("item/")+5,s.indexOf("?"));
+
+            // true 层模式
+            if (!cell){
+                id = s.substring(s.indexOf("item/")+5,s.indexOf("?"));
+            }else {
+                id = s.substring(s.indexOf("cell_id=")+8,s.indexOf("&carrier"));
+            }
         }catch (IOException e) {
             e.printStackTrace();
         }
         return id;
     }
 
+
+    // 无水印视频Url
     private String  getOriginUrl(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("item").getJSONObject("origin_video_download");
@@ -78,21 +100,54 @@ class PPX {
         return jsonObject.getString("url");
     }
 
+    // 层主无水印视频Url
+    private String  getCellOriginUrl(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("video_fallback");
+        JSONArray jsonArray = jsonObject.getJSONArray("url_list");
+        jsonObject = jsonArray.getJSONObject(0);
+        return jsonObject.getString("url");
+    }
+
+    // 无水印视频标题
     private String  getOriginTitle(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("item").getJSONObject("video");
         return jsonObject.getString("text");
     }
 
+    // 层主无水印视频标题
+    private String  getCellOriginTitle(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment");
+        return jsonObject.getString("text");
+    }
+
+    // 视频作者ID
     private String  getAuthorId(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("item").getJSONObject("author");
         return jsonObject.getString("id_str");
     }
 
+    // 曾视频作者ID
+    private String  getCellAuthorId(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("user");
+        return jsonObject.getString("id_str");
+    }
+
+    // 视频作者名称
     private String  getAuthorName(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("item").getJSONObject("author");
+        return jsonObject.getString("name");
+    }
+
+    // 曾视频作者名称
+    private String  getCellAuthorName(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("user");
         return jsonObject.getString("name");
     }
 

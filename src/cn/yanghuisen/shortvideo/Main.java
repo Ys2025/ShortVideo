@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Main {
     public static void main(String[] args) {
-        Map<String,String> map_ppx = ShortVideo.getPPX("https://h5.pipix.com/s/gaKf8F/");
+        Map<String,String> map_ppx = ShortVideo.getPPX("https://h5.pipix.com/s/gX2bTX/",false);
         System.out.println(map_ppx);
 
         Map<String,String> map_dy = ShortVideo.getDY("https://v.douyin.com/gmP8YY/");

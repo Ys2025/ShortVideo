@@ -11,9 +11,9 @@ import java.util.Map;
  */
 public class ShortVideo {
 
-    public static Map<String,String> getPPX(String url) {
+    public static Map<String,String> getPPX(String url,boolean cell) {
         Map<String,String> map = new HashMap<>();
-        PPX ppx = new PPX(url);
+        PPX ppx = new PPX(url,cell);
         map.put("VideoID",ppx.getVideoId());
         map.put("OriginTitle",ppx.getVideoOriginTitle());
         map.put("OriginUrl",ppx.getVideoOriginUrl());
