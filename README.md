@@ -4,7 +4,7 @@
 ## 使用
 * 皮皮虾
   ```
-  Map<String,String> map_ppx = ShortVideo.getPPX(皮皮虾短视频链接,层模式);;
+  Map<String,String> map_ppx = ShortVideo.getPPX(皮皮虾短视频链接,层模式);
   ```
   
   返回Map类型数据，键值对照如下<br>
