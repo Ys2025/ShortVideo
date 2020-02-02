@@ -19,6 +19,7 @@ public class ShortVideo {
         map.put("OriginUrl",ppx.getVideoOriginUrl());
         map.put("AuthorID",ppx.getVideoAuthorId());
         map.put("AuthorName",ppx.getVideoAuthorName());
+        map.put("AuthorImage",ppx.getVideoAuthorImage());
         return map;
     }
 
@@ -38,6 +39,7 @@ public class ShortVideo {
         map.put("OriginUrl",ws.getVideoOriginUrl());
         map.put("AuthorID",ws.getVideoAuthorId());
         map.put("AuthorName",ws.getVideoAuthorName());
+        map.put("AuthorImage",ws.getVideoAuthorImage());
         return map;
     }
 }

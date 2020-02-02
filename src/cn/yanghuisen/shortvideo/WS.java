@@ -22,6 +22,7 @@ class WS {
     private String videoOriginTitle;
     private String videoAuthorId;
     private String videoAuthorName;
+    private String videoAuthorImage;
 
     public WS(String videoUrl) {
         this.videoUrl = videoUrl;
@@ -31,6 +32,7 @@ class WS {
         this.videoOriginTitle = getOriginTitle();
         this.videoAuthorId = getAuthorId();
         this.videoAuthorName = getAuthorName();
+        this.videoAuthorImage = getAuthorImage();
     }
 
     private String getJson(){
@@ -96,6 +98,14 @@ class WS {
         return jsonObject.getString("nick");
     }
 
+    private String  getAuthorImage(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data");
+        JSONArray jsonArray = jsonObject.getJSONArray("feeds");
+        jsonObject = jsonArray.getJSONObject(0).getJSONObject("poster");
+        return jsonObject.getString("avatar");
+    }
+
     public String getVideoId() {
         return videoId;
     }
@@ -117,5 +127,9 @@ class WS {
 
     public String getVideoAuthorName() {
         return videoAuthorName;
+    }
+
+    public String getVideoAuthorImage() {
+        return videoAuthorImage;
     }
 }

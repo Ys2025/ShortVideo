@@ -24,6 +24,7 @@ class PPX {
     private String videoOriginTitle;
     private String videoAuthorId;
     private String videoAuthorName;
+    private String videoAuthorImage;
     private boolean cell;
 
     public PPX(String video_url,boolean cell) {
@@ -36,11 +37,13 @@ class PPX {
             this.videoOriginTitle = getOriginTitle();
             this.videoAuthorId = getAuthorId();
             this.videoAuthorName = getAuthorName();
+            this.videoAuthorImage = getAuthorImage();
         }else {
             this.videoOriginUrl = getCellOriginUrl();
             this.videoOriginTitle = getCellOriginTitle();
             this.videoAuthorId = getCellAuthorId();
             this.videoAuthorName = getCellAuthorName();
+            this.videoAuthorImage = getCellAuthorImage();
         }
 
     }
@@ -130,7 +133,7 @@ class PPX {
         return jsonObject.getString("id_str");
     }
 
-    // 曾视频作者ID
+    // 层主视频作者ID
     private String  getCellAuthorId(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("user");
@@ -144,11 +147,29 @@ class PPX {
         return jsonObject.getString("name");
     }
 
-    // 曾视频作者名称
+    // 层主视频作者名称
     private String  getCellAuthorName(){
         JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
         jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("user");
         return jsonObject.getString("name");
+    }
+
+    // 视频作者头像
+    private String  getAuthorImage(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("item").getJSONObject("author").getJSONObject("avatar");
+        JSONArray jsonArray = jsonObject.getJSONArray("url_list");
+        jsonObject = jsonArray.getJSONObject(0);
+        return jsonObject.getString("url");
+    }
+
+    // 层主视频作者头像
+    private String  getCellAuthorImage(){
+        JSONObject jsonObject = JSONObject.parseObject(this.videoJson);
+        jsonObject = jsonObject.getJSONObject("data").getJSONObject("comment").getJSONObject("user").getJSONObject("avatar");
+        JSONArray jsonArray = jsonObject.getJSONArray("url_list");
+        jsonObject = jsonArray.getJSONObject(0);
+        return jsonObject.getString("url");
     }
 
     public String getVideoId() {
@@ -172,5 +193,9 @@ class PPX {
 
     public String getVideoAuthorName() {
         return videoAuthorName;
+    }
+
+    public String getVideoAuthorImage() {
+        return videoAuthorImage;
     }
 }
