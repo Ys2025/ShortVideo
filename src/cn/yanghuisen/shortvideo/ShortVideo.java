@@ -42,4 +42,16 @@ public class ShortVideo {
         map.put("AuthorImage",ws.getVideoAuthorImage());
         return map;
     }
+
+    public static Map<String,String> getQM(String url){
+        Map<String,String> map = new HashMap<>();
+        QM qm = new QM(url);
+        map.put("VideoID",qm.getVideoId());
+        map.put("OriginTitle",qm.getVideoOriginTitle());
+        map.put("OriginUrl",qm.getVideoOriginUrl());
+        map.put("AuthorID",qm.getVideoAuthorId());
+        map.put("AuthorName",qm.getVideoAuthorName());
+        map.put("AuthorImage",qm.getVideoAuthorImage());
+        return map;
+    }
 }
