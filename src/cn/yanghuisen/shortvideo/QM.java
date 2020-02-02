@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 public class QM {
     private String videoUrl;
@@ -93,6 +94,9 @@ public class QM {
     }
 
     public String getVideoOriginTitle() {
+        if (this.videoOriginTitle.isEmpty()){
+            return new Date().getTime()+"";
+        }
         return videoOriginTitle;
     }
 
