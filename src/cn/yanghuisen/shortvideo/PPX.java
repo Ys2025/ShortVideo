@@ -60,7 +60,7 @@ class PPX {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
             conn.connect();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 
             String line = "";
             while ((line=br.readLine())!=null){

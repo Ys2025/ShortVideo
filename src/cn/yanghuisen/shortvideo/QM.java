@@ -42,7 +42,7 @@ public class QM {
             URL url = new URL("https://quanmin.hao222.com/wise/growth/api/sv/immerse?source=share-h5&pd=qm_share_mvideo&vid="+this.videoId);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = "";
             while ((line=br.readLine())!=null){
                 result += line;

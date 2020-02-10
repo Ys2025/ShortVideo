@@ -49,7 +49,7 @@ class WS {
             bw.flush();
             bw.close();
             conn.connect();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = "";
             while ((line=br.readLine())!=null){
                 result += line;
